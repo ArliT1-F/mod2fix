@@ -1,0 +1,247 @@
+:root {
+    --primary: #4CAF50;
+    --danger: #f44336;
+    --warning: #ff9800;
+    --info: #2196F3;
+    --bg: #1a1a1a;
+    --card-bg: #2d2d2d;
+    --text: #e0e0e0;
+    --border: #404040;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    padding: 40px 0;
+    border-bottom: 2px solid var(--border);
+}
+
+header h1 {
+    font-size: 3rem;
+    color: var(--primary);
+    margin-bottom: 10px;
+}
+
+header p {
+    color: #888;
+    font-size: 1.2rem;
+}
+
+main {
+    padding: 40px 0;
+}
+
+.upload-section {
+    background: var(--card-bg);
+    border-radius: 10px;
+    padding: 30px;
+    margin-bottom: 30px;
+}
+
+.tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.tab {
+    flex: 1;
+    padding: 12px 24px;
+    background: var(--bg);
+    color: var(--text);
+    border: 2px solid var(--border);
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s;
+}
+
+.tab.active {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.drop-zone {
+    border: 3px dashed var(--border);
+    border-radius: 10px;
+    padding: 60px 20px;
+    text-align: center;
+    transition: all 0.3s;
+    margin-bottom: 20px;
+}
+
+.drop-zone.dragover {
+    border-color: var(--primary);
+    background: rgba(76, 175, 80, 0.1);
+}
+
+.drop-zone p {
+    margin: 10px 0;
+    color: #888;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-primary:hover {
+    background: #45a049;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.paste-section {
+    margin-top: 20px;
+}
+
+.paste-section textarea {
+    width: 100%;
+    min-height: 200px;
+    background: var(--bg);
+    border: 2px solid var(--border);
+    border-radius: 5px;
+    padding: 15px;
+    color: var(--text);
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    margin: 10px 0;
+    resize: vertical;
+}
+
+.folder-select {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.folder-select input {
+    margin: 20px 0;
+}
+
+.results-section {
+    background: var(--card-bg);
+    border-radius: 10px;
+    padding: 30px;
+}
+
+.error-card {
+    background: var(--bg);
+    border-left: 4px solid var(--danger);
+    border-radius: 5px;
+    padding: 20px;
+    margin: 15px 0;
+}
+
+.dependency-card {
+    background: var(--bg);
+    border-left: 4px solid var(--warning);
+    border-radius: 5px;
+    padding: 20px;
+    margin: 15px 0;
+}
+
+.success-card {
+    background: var(--bg);
+    border-left: 4px solid var(--primary);
+    border-radius: 5px;
+    padding: 20px;
+    margin: 15px 0;
+}
+
+.mod-name {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: var(--primary);
+    margin-bottom: 10px;
+}
+
+.download-link {
+    display: inline-block;
+    margin: 5px 10px 5px 0;
+    padding: 8px 16px;
+    background: var(--info);
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: all 0.3s;
+}
+
+.download-link:hover {
+    background: #1976D2;
+    transform: translateY(-2px);
+}
+
+.loading {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.spinner {
+    border: 4px solid var(--border);
+    border-top: 4px solid var(--primary);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+footer {
+    text-align: center;
+    padding: 30px 0;
+    border-top: 2px solid var(--border);
+    color: #888;
+}
+
+footer a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2rem;
+    }
+    
+    .tabs {
+        flex-direction: column;
+    }
+}

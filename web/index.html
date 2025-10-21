@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mod2fix - Minecraft Mod Error Analyzer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <h1>🏥 mod2fix</h1>
+                <p>Minecraft Mod Diagnostic Tool</p>
+            </div>
+        </header>
+
+        <main>
+            <div class="upload-section">
+                <h2>Upload Crash Log or Select Mods Folder</h2>
+                
+                <div class="tabs">
+                    <button class="tab active" data-tab="log">Crash Log</button>
+                    <button class="tab" data-tab="folder">Mods Folder</button>
+                </div>
+
+                <div class="tab-content active" id="log-tab">
+                    <div class="drop-zone" id="drop-zone">
+                        <p>📄 Drag & drop your crash log here</p>
+                        <p>or</p>
+                        <button class="btn-primary" onclick="document.getElementById('file-input').click()">
+                            Browse Files
+                        </button>
+                        <input type="file" id="file-input" accept=".txt,.log" hidden>
+                    </div>
+
+                    <div class="paste-section">
+                        <p>Or paste log content directly:</p>
+                        <textarea id="log-paste" placeholder="Paste crash log here..."></textarea>
+                        <button class="btn-primary" id="analyze-btn">Analyze Log</button>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="folder-tab">
+                    <div class="folder-select">
+                        <p>Select your Minecraft mods folder:</p>
+                        <input type="file" id="folder-input" webkitdirectory directory multiple>
+                        <button class="btn-primary" id="scan-btn">Scan Dependencies</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="results-section" id="results" style="display: none;">
+                <h2>📊 Diagnostic Results</h2>
+                <div id="results-content"></div>
+            </div>
+
+            <div class="loading" id="loading" style="display: none;">
+                <div class="spinner"></div>
+                <p>Analyzing...</p>
+            </div>
+        </main>
+
+        <footer>
+            <p>mod2fix v1.0.0 | <a href="https://github.com/ArliT1-F/mod2fix">GitHub</a></p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
