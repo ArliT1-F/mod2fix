@@ -70,7 +70,7 @@ class ModrinthAPI:
         return None
     
     @staticmethod
-    def get_mod_versions(project_id: str, minecraft_version: str = None, loader: str = None) -> List[Dict]:
+    def get_mod_versions(project_id: str, minecraft_version: Optional[str] = None, loader: Optional[str] = None) -> List[Dict]:
         """Get mod versions filtered by MC version and loader"""
         if not REQUESTS_AVAILABLE:
             return []
@@ -93,13 +93,15 @@ class ModrinthAPI:
         return []
     
     @staticmethod
-    def get_best_version(mod_id: str, minecraft_version: str, loader: str) -> Optional[Dict]:
+    def get_best_version(mod_id: str, minecraft_version: Optional[str], loader: Optional[str]) -> Optional[Dict]:
         """Get the best matching version for a mod"""
         mod_info = ModrinthAPI.search_mod(mod_id)
         if not mod_info:
             return None
         
         project_id = mod_info.get('project_id') or mod_info.get('slug')
+        if not project_id:
+            return None
         versions = ModrinthAPI.get_mod_versions(project_id, minecraft_version, loader)
         
         if versions:
@@ -352,8 +354,8 @@ class DependencyChecker:
                         mc_version_count[v] += 1
         
         # Detect most common loader and MC version
-        self.loader_type = max(loader_count, key=loader_count.get) if mods else None
-        self.minecraft_version = max(mc_version_count, key=mc_version_count.get) if mc_version_count else None
+        self.loader_type = max(loader_count, key=lambda k: loader_count[k]) if mods else None
+        self.minecraft_version = max(mc_version_count, key=lambda v: mc_version_count[v]) if mc_version_count else None
         
         if self.minecraft_version:
             print(f"🎮 Detected Minecraft version: {self.minecraft_version}")
@@ -503,8 +505,8 @@ class ModErrorAnalyzer:
         name = re.sub(r'[^\w\-]', '', name)
         return name or "Unknown"
     
-    def format_report(self, issues: List[Dict], missing_deps: Dict = None, 
-                     dep_tree: str = None, mc_version: str = None, loader: str = None) -> str:
+    def format_report(self, issues: List[Dict], missing_deps: Optional[Dict] = None, 
+                     dep_tree: Optional[str] = None, mc_version: Optional[str] = None, loader: Optional[str] = None) -> str:
         """Format full report"""
         report = []
         report.append("=" * 80)

@@ -1,7 +1,13 @@
 from flask import Flask, request, jsonify
-from flask_cors import CORS
+try:
+    from flask_cors import CORS
+except Exception:
+    # Fallback no-op CORS if flask_cors is not installed
+    def CORS(app, *args, **kwargs):
+        return app
 import tempfile
 from pathlib import Path
+from dataclasses import asdict
 import mod2fix
 
 app = Flask(__name__)
@@ -10,7 +16,7 @@ CORS(app)
 @app.route('/api/analyze', methods=['POST'])
 def analyze_log():
     """Analyze crash log"""
-    data = request.json
+    data = request.get_json(silent=True) or {}
     log_content = data.get('log_content', '')
     
     analyzer = mod2fix.ModErrorAnalyzer()
@@ -32,8 +38,9 @@ def scan_mods():
         
         # Save uploaded files
         for file in files:
-            if file.filename.endswith('.jar'):
-                file.save(tmp_path / file.filename)
+            filename = getattr(file, 'filename', '') or ''
+            if filename.lower().endswith('.jar'):
+                file.save(tmp_path/filename)
         
         # Scan
         dep_checker = mod2fix.DependencyChecker()
